@@ -163,26 +163,24 @@ def user_stats(df):
     start_time = time.time()
 
     # Display counts of user types
-    print("Stats of User Type:")
-    print(df['User Type'].value_counts())
-    
-    if city != 'washington':
+    count_user_type = df['User Type'].value_counts()
+    print("User Type Count:"+" "+ str(count_user_type) +"\n")
         
-        # Display counts of gender
-        print("Stats of Gender :")
-        print(df['Gender'].value_counts())
+    # Display counts of gender
+    print("Stats of Gender :")
+    print(df['Gender'].value_counts())
         
-        # Display earliest, most recent, and most common year of birth
-        print("Stats of Birth Year :")
+    # Display earliest, most recent, and most common year of birth
+    print("Stats of Birth Year :")
         
-        most_common_year = df['Birth Year'].mode()[0]
-        print(" The Most Common Birth Year:" ,most_common_year)
+    most_common_year = df['Birth Year'].mode()[0]
+    print(" The Most Common Birth Year:" ,most_common_year)
         
-        most_recent_year = df['Birth Year'].max()
-        print("The Most Recent Birth Year:" ,most_recent_year)
+    most_recent_year = df['Birth Year'].max()
+    print("The Most Recent Birth Year:" ,most_recent_year)
         
-        earliest_year = df['Birth Year'].min()
-        print("The Earliest Birth Year:" ,earliest_year)
+    earliest_year = df['Birth Year'].min()
+    print("The Earliest Birth Year:" ,earliest_year)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -192,6 +190,16 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
+        
+        view_data = input("Would you like to view 5 rows of individual trip data? Enter yes or no?")
+        start_loc = 0
+        keep_asking = True
+        while (keep_asking):
+            print(df.iloc[start_loc:start_loc + 5])
+            start_loc += 5
+            view_display = input("Do you wish to continue?: ").lower()
+            if view_display == "no": 
+                keep_asking = False
 
         time_stats(df)
         station_stats(df)
