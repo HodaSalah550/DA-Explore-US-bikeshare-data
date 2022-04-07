@@ -166,6 +166,10 @@ def user_stats(df):
     count_user_type = df['User Type'].value_counts()
     print("User Type Count:"+" "+ str(count_user_type) +"\n")
         
+    # Not all the cities have the “Gender” column
+    if 'Gender' in df.columns:
+        print("users types are \n", df['Gender'].value_counts())
+
     # Display counts of gender
     print("Stats of Gender :")
     print(df['Gender'].value_counts())
